@@ -33,6 +33,9 @@ spec:
   ruleSelector:
     matchLabels:
       prometheus: k8s
+  # luwang hack for cls by tanzu
+  secrets:                                                                      
+  - kube-etcd-client-certs 
   securityContext:
     fsGroup: 2000
     runAsNonRoot: true

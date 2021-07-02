@@ -13,8 +13,14 @@ spec:
   {{if $PROMETHEUS_SCRAPE_ETCD}}
   - interval: 5s
     port: etcd-2379
-  - interval: 5s
-    port: etcd-2382
+    # luwang hack for cls by tanzu
+    scheme: https                                                               
+    tlsConfig:                                                                  
+      certFile: /etc/prometheus/secrets/kube-etcd-client-certs/server.crt          
+      insecureSkipVerify: true                                                  
+      keyFile: /etc/prometheus/secrets/kube-etcd-client-certs/server.key 
+  #- interval: 5s
+  #  port: etcd-2382 
   {{end}}
   {{if $PROMETHEUS_SCRAPE_NODE_EXPORTER}}
   # TODO(mborsz): Debug why node-exporter is that slow and change interval back to 5s.
@@ -30,17 +36,31 @@ spec:
   - interval: 5s
     port: kubelet
     scheme: https
+    # luwang hack for cls by tanzu
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     tlsConfig:
       insecureSkipVerify: true
   - interval: 5s
     port: kubelet
     path: /metrics/cadvisor
     scheme: https
+    # luwang hack for cls by tanzu
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     tlsConfig:
       insecureSkipVerify: true
-  - interval: 5s
-    port: kube-scheduler
-  - interval: 5s
-    port: kube-controller-manager
+ # - interval: 5s
+  #  port: kube-scheduler
+    # luwang hack for cls by tanzu
+  #  scheme: https
+  #  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  #  tlsConfig:
+  #    insecureSkipVerify: true
+  #- interval: 5s
+  #  port: kube-controller-manager
+    # luwang hack for cls by tanzu
+  #  scheme: https
+  #  bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  #  tlsConfig:
+  #    insecureSkipVerify: true
   selector:
     k8s-app: master

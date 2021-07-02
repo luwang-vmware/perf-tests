@@ -2,9 +2,10 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: ssd
-provisioner: kubernetes.io/gce-pd
+# luwang hack for cls by tanzu
+provisioner: csi.vsphere.vmware.com
 parameters:
-  type: pd-ssd
+  datastoreurl: "ds:///vmfs/volumes/vsan:5249834a9f288b9b-4e35d9ee48be834d/"
 {{if .RetainPD}}
 reclaimPolicy: Retain
 {{end}}

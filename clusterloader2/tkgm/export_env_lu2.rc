@@ -1,0 +1,5 @@
+export ETCD_CERTIFICATE=/etc/kubernetes/pki/etcd/server.crt                     
+export ETCD_KEY=/etc/kubernetes/pki/etcd/server.key                             
+export KUBE_SSH_KEY="/root/.ssh/id_rsa"                                         
+export KUBE_SSH_USER="capv"
+export masterip=20.20.151.96,20.20.151.95,20.20.151.93

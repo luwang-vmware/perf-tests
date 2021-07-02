@@ -16,18 +16,19 @@ subsets:
     {{end}}
     ports:
       - name: apiserver
-        port: 443
+        port: 6443
       {{if not $PROMETHEUS_SCRAPE_APISERVER_ONLY}}
       - name: etcd-2379
         port: 2379
-      - name: etcd-2382
-        port: 2382
+      #- name: etcd-2382
+      #  port: 2382
       - name: kubelet
         port: 10250
+      # luwang hack for cluster deployed by tanzu
       - name: kube-scheduler
-        port: 10251
+        port: 10259
       - name: kube-controller-manager
-        port: 10252
+        port: 10257
       {{end}}
       {{if $PROMETHEUS_SCRAPE_NODE_EXPORTER}}
       - name: node-exporter

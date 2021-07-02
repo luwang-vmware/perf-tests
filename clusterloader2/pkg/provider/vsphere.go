@@ -58,6 +58,8 @@ func (p *VsphereProvider) RunSSHCommand(cmd, host string) (string, string, int, 
 	if err != nil {
 		return "", "", 0, err
 	}
-	user := defaultSSHUser()
+	// luwang hack for cluster deployed by tanzu
+	// user := defaultSSHUser()
+	user := "capv"
 	return sshutil.RunSSHCommand(cmd, user, host, signer)
 }
